@@ -10,6 +10,8 @@ import MyProfile from './pages/MyProfile.jsx';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
 import MyAppointments from './pages/MyAppointments.jsx';
+import Appointment from "./pages/Appointment.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
     return (
@@ -28,7 +30,9 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/my-appointments" element={<MyAppointments />} />
+                    <Route path="appointments/:doctorId"  element={<Appointment />} />
                 </Routes>
+                <Footer />
             </div>
         </>
     );

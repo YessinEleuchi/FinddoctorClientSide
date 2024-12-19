@@ -1,10 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.active hr {
-    @apply block
+* {
+    font-family: 'Outfit', sans-serif;  /* Ensure to use the proper font */
 }
+
+/* Style for active element */
+.active hr {
+    @apply block;  /* Applies Tailwind's block utility to the hr element inside active class */
+}
+
+/* Hides the scrollbar */
 ::-webkit-scrollbar {
-    @apply hidden
+    @apply hidden;  /* Applies Tailwind's hidden utility to the scrollbar */
 }

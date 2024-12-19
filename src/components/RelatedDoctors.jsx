@@ -1,16 +1,19 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppContext } from "../context/AppContext";
+import React, {useContext, useEffect, useState} from 'react'
+import {AppContext} from "../context/AppContext.jsx";
+import {useNavigate} from "react-router-dom";
 
-const TopDoctors = () => {
-    const [loading, setLoading] = useState(true); // État de chargement
+const RelatedDoctors = ({speciality , docId}) => {
+    const {doctors} = useContext(AppContext);
+    const [relDoctors, setRelDoctors] = useState([]);
     const navigate = useNavigate();
-    const { doctors } = useContext(AppContext);
 
-    const handleNavigation = () => {
-        navigate('/doctors');  // Navigate to the '/doctors' page
-        window.scrollTo(0, 0); // Scroll to the top of the page
-    };
+    useEffect(() => {
+        if(doctors.length > 0 && speciality ){
+            const doctorsData = doctors.filter(doctor => doctor.speciality === speciality && doctor.id !== docId);
+            setRelDoctors(doctorsData);
+        }
+
+    },[doctors, speciality, docId])
 
     return (
         <div className="flex flex-col items-center gap-8 my-16 text-gray-900 md:mx-10">
@@ -19,7 +22,7 @@ const TopDoctors = () => {
                 Simply browse through our extensive list of trusted doctors.
             </p>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-3 sm:px-0">
-                {doctors.slice(0, 10).map((doctor) => (
+                {relDoctors.slice(0, 5).map((doctor) => (
                     <div
                         onClick={() => {navigate(`/appointments/${doctor.id}`);scrollTo(0,0)}}
                         className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
@@ -44,13 +47,11 @@ const TopDoctors = () => {
                 ))}
             </div>
             <button
-                onClick={handleNavigation}
                 className="bg-blue-50 text-gray-600 px-12 py-3 rounded-full mt-10"
             >
                 More
             </button>
         </div>
-    );
-};
-
-export default TopDoctors;
+    )
+}
+export default RelatedDoctors

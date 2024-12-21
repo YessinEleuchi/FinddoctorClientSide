@@ -101,14 +101,6 @@ const Login = () => {
                     </div>
                 </form>
 
-                <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-600">
-                        Don't have an account?{" "}
-                        <a href="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                            Register here
-                        </a>
-                    </p>
-                </div>
             </div>
         </div>
     );

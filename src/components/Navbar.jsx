@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { assets } from '../assets/assets_frontend/assets.js';
-import {NavLink, useNavigate} from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const [showMenu, setShowMenu] =useState(false);
-    const [token , setToken] = useState(true);
+    const [showMenu, setShowMenu] = useState(false);
+    const [token, setToken] = useState(!!localStorage.getItem("CC_Token"));
+
+    const handleLogout = () => {
+        localStorage.removeItem("CC_Token");
+        localStorage.removeItem("user");
+        navigate('/');
+        setToken(false);
+    };
 
     return (
         <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
@@ -103,10 +110,7 @@ const Navbar = () => {
                                             My Appointments
                                         </li>
                                         <li
-                                            onClick={() => {
-                                                setToken(false);
-                                                setShowMenu(false);
-                                            }}
+                                            onClick={() => handleLogout()}
                                             className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800"
                                         >
                                             Logout
@@ -118,14 +122,12 @@ const Navbar = () => {
                     ) : (
                         <button
                             onClick={() => navigate('/login')}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
                         >
-                            Create Account
+                            Login
                         </button>
                     )}
                 </div>
-
-
             </div>
         </div>
     );
